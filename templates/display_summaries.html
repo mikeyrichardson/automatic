@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Display Summaries</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <div class="container">
+    <div class="scrollable-table">
+      {% set attributes = summary['overall_summary'].keys() %}
+      {% set tags = summary['per_tag_summaries'].keys() %}
+      {% set tag_summaries = summary['per_tag_summaries'] %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-xs-1"></th>
+            <th class="col-xs-1"><div><span>Overall</span></div></th>
+            {% for tag in tags %}
+                <th class="col-xs-1"><div><span>{{ tag }}</span></div></th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for attribute in attributes %}
+          <tr>
+            <th class="row-header">{{ attribute }}</th>
+            <td>{{ '%0.1f' % summary['overall_summary'].get(attribute, 0) | float }}</td>
+            {% for tag in tags %}
+                <td>{{ '%0.1f' % tag_summaries[tag].get(attribute, 0) | float }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% set days_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+      {% set day_of_week_summaries = summary['per_day_of_week_summaries'] %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-xs-1"><div><span>Overall</span></div></th>
+            {% for day in days_of_week %}
+                <th class="col-xs-1"><div><span>{{ day }}</span></div></th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for attribute in attributes %}
+          <tr>
+            <th class="row-header">{{ attribute }}</th>
+            <td>{{ '%0.1f' % summary['overall_summary'].get(attribute, 0) | float }}</td>
+            {% for day in days_of_week %}
+                <td>{{ '%0.1f' % day_of_week_summaries[day].get(attribute, 0) | float }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% set vehicle_urls = summary['per_vehicle_summaries'].keys() %}
+      {% set vehicle_summaries = summary['per_vehicle_summaries'] %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-xs-1"><div><span>Overall</span></div></th>
+            {% for url in vehicle_urls %}
+                <th class="col-xs-1"><div><span>{{ url.split('/')[-2][-6:] }}</span></div></th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for attribute in attributes %}
+          <tr>
+            <th class="row-header">{{ attribute }}</th>
+            <td>{{ '%0.1f' % summary['overall_summary'].get(attribute, 0) | float }}</td>
+            {% for url in vehicle_urls %}
+                <td>{{ '%0.1f' % vehicle_summaries[url].get(attribute, 0) | float }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </body>
+</html>
