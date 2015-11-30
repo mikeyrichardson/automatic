@@ -18,7 +18,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="col-xs-1"></th>
+            <th class="col-xs-1">TAG SUMMARY</th>
             <th class="col-xs-1"><div><span>Overall</span></div></th>
             {% for tag in tags %}
                 <th class="col-xs-1"><div><span>{{ tag }}</span></div></th>
@@ -42,7 +42,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th></th>
+            <th>DAY OF THE WEEK SUMMARY</th>
             <th class="col-xs-1"><div><span>Overall</span></div></th>
             {% for day in days_of_week %}
                 <th class="col-xs-1"><div><span>{{ day }}</span></div></th>
@@ -66,7 +66,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th></th>
+            <th>VEHICLE SUMMARY</th>
             <th class="col-xs-1"><div><span>Overall</span></div></th>
             {% for url in vehicle_urls %}
                 <th class="col-xs-1"><div><span>{{ url.split('/')[-2][-6:] }}</span></div></th>
